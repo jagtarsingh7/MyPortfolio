@@ -1,27 +1,25 @@
 
 import { useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
-import React from 'react';
-import { Mesh, TextureLoader } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-function Moon(){
-  const moonRef = useRef<Mesh>(null);
-  const moonTexture = useLoader(TextureLoader, '/assets/moon.jpg');
-  const moonNormalTexture = useLoader(TextureLoader, '/assets/moon_normal.jpg');
-
+function Moon() {
+  const modelRef = useRef();
+  // Load the GLTF model using the GLTFLoader
+  const gltf = useLoader(GLTFLoader, '/models/moon/scene.gltf');
+  const moon = gltf.scene;
+  // Adjust position, rotation, and scale
+  moon.rotation.set(0, 0, 0); // Set the rotation
+  moon.scale.set(0.0005, 0.0005, 0.0005);
+  moon.position.set(7, -3, 468); // Set the position
+  // gltf.scene.position.set(0, 0, 0);
   useFrame((state, delta) => {
-    if(moonRef.current)
-    moonRef.current.rotation.y += 0.01 * 2;
+    // Rotate the model around the Y-axis
+    moon.rotation.y += 0.0005 ;
+    moon.position.x-= 0.0001 
   });
-  return (
-    <mesh ref={moonRef}>
-      <sphereGeometry args={[3, 32, 32]} />
-      <meshStandardMaterial map={moonTexture} normalMap={moonNormalTexture} />
-    </mesh>
-  );
+  return <primitive ref={modelRef} object={gltf.scene} />;
 };
-
-export default Moon;
-
+export default Moon
 
 

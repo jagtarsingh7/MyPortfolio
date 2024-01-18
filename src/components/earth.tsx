@@ -9,14 +9,14 @@ function Earth () {
   const gltf = useLoader(GLTFLoader, '/models/earthModel/scene.gltf');
   const earthModel = gltf.scene;
   // Adjust position, rotation, and scale
-  earthModel.position.set(-10, 0, 40); // Set the position
   earthModel.rotation.set(0, 1, 0); // Set the rotation
-  earthModel.scale.set(0.8, 0.8, 0.8);
-  gltf.scene.position.set(0, 0, 0);
+  earthModel.scale.set(10,10, 10);
+  earthModel.position.set(-95, -35, 150);
 
   useFrame((state, delta) => {
     // Rotate the model around the Y-axis
-    earthModel.rotation.y += 0.01 * 2;
+    earthModel.rotation.y += 0.0009 ;
+    earthModel.position.x += 0.0007 ;
   });
 
   return <primitive ref={modelRef} object={gltf.scene} />;

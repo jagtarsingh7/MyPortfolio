@@ -1,33 +1,61 @@
-import { useRef } from "react"
-import { Camera, Canvas, useThree } from "@react-three/fiber"
-import Earth from "../components/earth"
-import SpaceShip from "../components/space-ship";
-import { Stars } from "@react-three/drei";
-import Moon from "../components/moon";
-import ThreeDText from "../components/text";
+import { useEffect, useRef } from "react"
+import { Camera, Canvas } from "@react-three/fiber"
+import MyCanvas from "./mycanvas";
+
 
 function Home() {
-    const cameraRef = useRef<Camera>(); // Specify the type for cameraRef
+  const cameraRef = useRef<Camera>(); // Specify the type for cameraRef
   // Set camera position when the canvas is created
   const onCreated = ({ camera }: { camera: Camera }) => {
     if (camera) {
-      camera.position.set(0, 0, 30); // Z-axis
-      camera.position.setX(-3); // X-axis
+      camera.position.set(4.0, -2.4, 470); // Z-axis
+      camera.rotation.y = 0;
       cameraRef.current = camera;
     }
   };
-    return (
-        <div className="h-screen w-screen  ">       
-        <Canvas onCreated={onCreated} className="border-8 border-red-950 h-full w-full">
-            <color attach="background" args={['black']} />
-            <ambientLight />
-            <Moon />
-            <Stars/>
-            <ThreeDText pos={[1,2,2]} content={"Heeloooo"}/>
-            <ThreeDText pos={[-20,3,-10]} content={"Heyyyyyy"}/>
-        </Canvas>
-        </div>
-    )
-}
 
+  function handleScroll() {
+  
+    if (cameraRef.current) 
+    {
+      const cursorValue=(-window.scrollY * 0.5)+470
+      console.log("value",cursorValue )
+      console.log("x value",cameraRef.current.position.x )
+      console.log("y value",cameraRef.current.position.y )
+      cameraRef.current.position.z = cursorValue ;
+      
+      if(cursorValue>0)
+      {
+        cameraRef.current.position.x = calculateX(cursorValue);
+        cameraRef.current.position.y = -calculateX(cursorValue)*0.5;
+        cameraRef.current.rotation.y = -calculateX(cursorValue)*0.007;
+      }
+    }
+  };
+
+  function calculateX(z:any): number   {
+    return Math.sin(z / 50) * 200;
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <div style={{ height: '400vh' }} >
+      <div className="fixed top-0 h-screen w-screen">
+        <Canvas
+          onCreated={onCreated}>
+          <color attach="background" args={['black']} />
+          <ambientLight />
+          <MyCanvas camera={cameraRef} />
+        </Canvas>
+      </div>
+
+    </div>
+  )
+}
 export default Home
