@@ -6,6 +6,9 @@ function ThreeDText(props: IText) {
     const {rotate, link, pos, content } = props
     const [screenSize, setScreenSize] = useState(1);
 
+    const font = "/font/Orbitron/static/Orbitron-Black.ttf"
+
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 767) {
@@ -30,11 +33,13 @@ function ThreeDText(props: IText) {
             onPointerUp={() => { window.location.href = `https://${link}` }}
             position={pos}
             fontSize={screenSize}
-            font="bold"
+            font={font}
             color="white"
             anchorX="center"
             anchorY="middle"
             rotation={[0,rotate,0]}
+        
+            
         >
             {content}
         </Text>

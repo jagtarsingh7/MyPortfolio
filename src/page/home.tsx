@@ -1,29 +1,27 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Camera, Canvas } from "@react-three/fiber"
 import MyCanvas from "./mycanvas";
 
 
 function Home() {
+  const[load,setLoad]=useState(false)
   const cameraRef = useRef<Camera>(); // Specify the type for cameraRef
   // Set camera position when the canvas is created
   const onCreated = ({ camera }: { camera: Camera }) => {
     if (camera) {
-      camera.position.set(4.0, -2.4, 470); // Z-axis
-      camera.rotation.y = 0;
+      camera.position.set(5, -2.5, 470); // Z-axis
+      camera.rotation.y = -0.035;
       cameraRef.current = camera;
     }
   };
 
   function handleScroll() {
-  
     if (cameraRef.current) 
     {
       const cursorValue=(-window.scrollY * 0.5)+470
       console.log("value",cursorValue )
-      console.log("x value",cameraRef.current.position.x )
-      console.log("y value",cameraRef.current.position.y )
+     
       cameraRef.current.position.z = cursorValue ;
-      
       if(cursorValue>0)
       {
         cameraRef.current.position.x = calculateX(cursorValue);
@@ -39,12 +37,14 @@ function Home() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+      setLoad(true)
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
+    load?(
     <div style={{ height: '400vh' }} >
       <div className="fixed top-0 h-screen w-screen">
         <Canvas
@@ -54,8 +54,9 @@ function Home() {
           <MyCanvas camera={cameraRef} />
         </Canvas>
       </div>
-
     </div>
+    ):
+    (<div className="flex text-black justify-center font-thin items-center text-2xl h-screen w-screen animate-bounce duration-1000"> Loading...</div>)
   )
 }
 export default Home

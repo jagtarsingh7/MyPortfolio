@@ -5,5 +5,6 @@ export interface IPlane{
     image:string
     rotate:number,
     link:string
+    size:[width?: number | undefined, height?: number | undefined, widthSegments?: number | undefined, heightSegments?: number | undefined] | undefined,
     
 }

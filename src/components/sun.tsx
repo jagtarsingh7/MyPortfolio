@@ -16,13 +16,9 @@ export default function Sun() {
     console.log(actions)
     if (actions.Rot ) {
       actions.Rot.play();
-      mixer.timeScale = 0.1;
+      mixer.timeScale = 0.04;
     }
   }, []);
-
-  // useFrame(()=>{
-  //   scene.position.z-=20; // Set the position
-  // })
 
   return (
     <group ref={bgroup}>
@@ -32,7 +28,3 @@ export default function Sun() {
   )
 }
 
-useGLTF.preload("/models/thesun/scene.gltf");
-// sun.rotation.set(0, 0, 0); // Set the rotation
-// sun.scale.set(3, 3, 3);
-// sun.position.set(0, -100, -700); // Set the position

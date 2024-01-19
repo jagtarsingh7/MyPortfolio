@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 export default function SpaceShip() {
   const group = useRef();
   const { scene, animations } = useGLTF("/models/spaceship/scene.gltf", true);
-  const { actions, mixer } = useAnimations(animations, group);
+  const { actions } = useAnimations(animations, group);
   scene.scale.set(0.5, 0.5,0.5);
   scene.position.set(-10, 5, 460); // Set the position
 
@@ -62,4 +62,3 @@ export default function SpaceShip() {
 
   return <primitive  ref={group} object={scene} dispose={null} />;
 }
-useGLTF.preload("/models/spaceship/scene.gltf");
