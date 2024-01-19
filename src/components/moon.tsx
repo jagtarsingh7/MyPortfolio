@@ -9,15 +9,17 @@ function Moon () {
     const moonNormalTexture = useLoader(TextureLoader, '/assets/normal.jpg');
     useEffect(()=>{
       if(moonRef.current){
-        moonRef.current.position.set(250, -10, 300);
+        moonRef.current.position.set(250, -60, 400);
       }
     })
    // Set the position
     // gltf.scene.position.set(0, 0, 0);
    
     useFrame((state, delta) => {
-      if(moonRef.current)
-      moonRef.current.rotation.y += 0.001 ;
+      if(moonRef.current){
+      moonRef.current.rotation.y -= 0.0005 ;
+      moonRef.current.rotation.x += 0.0005;
+      }
     });
     return (
       <mesh ref={moonRef}>

@@ -5,4 +5,6 @@ export interface IText{
     content:string
     link:string
     rotate:number
+    small:boolean
+    newpos: Vector3 | undefined
 }

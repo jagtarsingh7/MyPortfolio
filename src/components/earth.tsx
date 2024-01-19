@@ -10,7 +10,7 @@ function Earth() {
   const earthModel = gltf.scene;
   // Adjust position, rotation, and scale
   earthModel.rotation.set(0, 1, 0); // Set the rotation
-  earthModel.scale.set(12, 12, 12);
+  earthModel.scale.set(10, 10, 10);
   earthModel.position.set(-205, -95, 150);
 
   useFrame((state, delta) => {

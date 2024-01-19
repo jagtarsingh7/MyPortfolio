@@ -2,15 +2,14 @@ import { useEffect, useRef, useState } from "react"
 import { Camera, Canvas } from "@react-three/fiber"
 import MyCanvas from "./mycanvas";
 
-
 function Home() {
   const[load,setLoad]=useState(false)
   const cameraRef = useRef<Camera>(); // Specify the type for cameraRef
   // Set camera position when the canvas is created
   const onCreated = ({ camera }: { camera: Camera }) => {
     if (camera) {
-      camera.position.set(5, -2.5, 470); // Z-axis
-      camera.rotation.y = -0.035;
+      camera.position.set(139, -70, 433); // Z-axis
+      camera.rotation.y = -0.97;
       cameraRef.current = camera;
     }
   };
@@ -18,7 +17,7 @@ function Home() {
   function handleScroll() {
     if (cameraRef.current) 
     {
-      const cursorValue=(-window.scrollY * 0.5)+470
+      const cursorValue=(-window.scrollY * 0.5)+433
       console.log("value",cursorValue )
      
       cameraRef.current.position.z = cursorValue ;
@@ -27,6 +26,9 @@ function Home() {
         cameraRef.current.position.x = calculateX(cursorValue);
         cameraRef.current.position.y = -calculateX(cursorValue)*0.5;
         cameraRef.current.rotation.y = -calculateX(cursorValue)*0.007;
+        console.log("value pos x",cameraRef.current.position.x )
+        console.log("value pos y",cameraRef.current.position.y )
+        console.log("value rot y",cameraRef.current.rotation.y )
       }
     }
   };
@@ -46,10 +48,10 @@ function Home() {
   return (
     load?(
     <div style={{ height: '400vh' }} >
-      <div className="fixed top-0 h-screen w-screen">
+      <div className="fixed top-0 h-screen w-screen" >
         <Canvas
           onCreated={onCreated}>
-          <color attach="background" args={['black']} />
+          <color attach="background" args={[1.5/255, 1/255, 1.5/ 255]}/>
           <ambientLight />
           <MyCanvas camera={cameraRef} />
         </Canvas>

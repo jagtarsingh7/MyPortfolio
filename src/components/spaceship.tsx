@@ -8,7 +8,7 @@ export default function SpaceShip() {
   const { scene, animations } = useGLTF("/models/spaceship/scene.gltf", true);
   const { actions } = useAnimations(animations, group);
   scene.scale.set(0.5, 0.5,0.5);
-  scene.position.set(-10, 5, 460); // Set the position
+  scene.position.set(165, -76, 420); // Set the position
 
   useEffect(() => {
     if (actions['Armature.002|Armature.002Action'] ) {
@@ -22,15 +22,16 @@ export default function SpaceShip() {
     if(move <2000 && move>0){
     if(move<900 && move>0 )
     {
-      if(move<750 && move>0)
+      if(move<500 && move>0)
       {
         if (actions['Armature.002|Armature.002Action'] ) {
           actions['Armature.002|Armature.002Action'].stop();
         }
-        scene.rotation.y += 0.002;
-        scene.rotation.x += 0.0004;
-        scene.position.z-= 0.04
+        scene.rotation.y += 0.0032;
+        scene.rotation.x += 0.0005;
+        scene.position.z-= 0.02
         scene.position.y+= 0.002
+        scene.position.x-= 0.002
        
       }
       else{

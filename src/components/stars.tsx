@@ -16,13 +16,13 @@ const Star = () => {
 
   useFrame(() => {
     if (starRef.current) {
-      starRef.current.position.set(x*2 , y*y, z*z );
+      starRef.current.position.set(x , y, z*z );
     }
   });
 
   return (
     <mesh ref={starRef}>
-      <sphereGeometry args={[0.25, 24, 24]} />
+      <sphereGeometry args={[0.2, 24, 24]} />
       <meshStandardMaterial emissive={[0.7, 0.5, 0.2]} color={randomColor} />
     </mesh>
   );
